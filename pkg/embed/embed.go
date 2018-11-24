@@ -1,5 +1,3 @@
-//package embed
-
 package embed
 
 import (
