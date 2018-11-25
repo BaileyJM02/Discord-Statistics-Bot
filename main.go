@@ -9,33 +9,25 @@ import (
 	"syscall"
 	"time"
 
-	Command "github.com/BaileyJM02/Hue/pkg/command"
+	"github.com/BaileyJM02/Hue/pkg/command"
 	"github.com/BaileyJM02/Hue/pkg/embed"
+
 	// "text/template"
 
 	"github.com/bwmarrin/discordgo"
 )
 
 // Variables used for command line parameters
-var (
-	Token    string
-	Commands []string
-	say      = Command{
-		"say",
-		"say <message>",
-		"Say something",
-		"General",
-		true,
-		sayRun,
-	}
-)
+
+var ()
 
 const (
 	prefix = "="
 )
 
-func (*Command) init() {
-	fmt.Println("Command Init")
+func init() {
+	// flag.StringVar(&Token, "t", "", "Bot Token")
+	// flag.Parse()
 }
 
 func error(session *discordgo.Session, channelid string, er string, reason string) {
@@ -49,14 +41,51 @@ func error(session *discordgo.Session, channelid string, er string, reason strin
 	session.ChannelMessageSendEmbed(channelid, embed)
 }
 
-// func init() {
-// 	flag.StringVar(&Token, "t", "", "Bot Token")
-// 	flag.Parse()
-// }
-
-func sayRun(s *discordgo.Session, m *discordgo.MessageCreate) {
-	s.ChannelMessageSend(m.ChannelID, "This is a test.")
+func sayRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string, Commands map[string]command.Command) {
+	if len(content[1:]) == 0 {
+		s.ChannelMessageSend(m.ChannelID, "**Error:** No arguments given (expected text)")
+		return
+	}
+	s.ChannelMessageSend(m.ChannelID,
+		fmt.Sprintf("%v", strings.Join(content[1:], " ")))
 }
+
+func helpRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string, Commands map[string]command.Command) {
+	if len(content[1:]) == 0 {
+		commands := ""
+		for key, value := range Commands {
+			commands += fmt.Sprintf("\n**%v%v**: %v", prefix, key, value.Description)
+		}
+		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("**Commands:** %v.", commands))
+		return
+	}
+	if cmd, ok := Commands[content[1]]; ok {
+		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("\n**%v%v** [%v]\n\nDescription: %v\nUsage: %v\nArgs required?: %v", prefix, cmd.Name, cmd.Category, cmd.Description, cmd.Usage, cmd.NeedArgs))
+	}
+}
+
+func pingRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string, Commands map[string]command.Command) {
+	msg, _ := s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(":PONGING;%d", time.Now().UnixNano()))
+
+	split := strings.Split(msg.Content, ";")
+	if split[0] != ":PONGING" || len(split) < 2 {
+		return
+	}
+
+	parsed, err := strconv.ParseInt(split[1], 10, 64)
+	if err != nil {
+		fmt.Println("err,", err)
+		return
+	}
+	taken := time.Duration(time.Now().UnixNano() - parsed)
+
+	started := time.Now()
+	s.ChannelMessageEdit(m.ChannelID, msg.ID, "Gateway (http send -> gateway receive time): "+taken.String())
+	httpPing := time.Since(started)
+
+	s.ChannelMessageEdit(m.ChannelID, msg.ID, fmt.Sprintf("HTTP API: `%vms` \nGateway: `%vms`", int64(httpPing/time.Millisecond), int64(taken/time.Millisecond)))
+}
+
 
 func main() {
 	// tmpl, err := template.New("test").Parse("{{.Count}} items are made of {{.Material}}")
@@ -92,6 +121,43 @@ func main() {
 // This function will be called (due to AddHandler above) every time a new
 // message is created on any channel that the autenticated bot has access to.
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
+	Commands := make(map[string]command.Command)
+
+	// Declare commands 
+	say := command.Command{
+		"say",
+		"say <message>",
+		"Say something",
+		"General",
+		true,
+		sayRun,
+	}
+
+	Commands["say"] = say
+
+	ping := command.Command{
+		"ping",
+		"ping",
+		"ping, pong",
+		"General",
+		false,
+		pingRun,
+	}
+
+	Commands["ping"] = ping
+
+
+	help := command.Command{
+		"help",
+		"help <command>",
+		"Help you",
+		"General",
+		false,
+		helpRun,
+	}
+
+	Commands["help"] = help
+
 	// Ignore all messages created by the bot itself
 	// This isn't required in this specific example but it's a good practice.
 
@@ -101,10 +167,15 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	content := strings.Fields(m.Content)
 
-	fmt.Println(say.Name)
-	fmt.Println(Commands)
-	if content[0] == prefix+"test" {
-		say.Run(s, m)
+	if !(strings.Contains(content[0], prefix)) {
+		return
+	}
+
+	content[0] = strings.Replace(content[0], prefix, "", -1)
+
+	if cmd, ok := Commands[content[0]]; ok {
+		fmt.Println(cmd.Name)
+		cmd.Run(s, m, content, Commands)
 	}
 
 	// If the message is "ping"
@@ -130,17 +201,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		s.ChannelMessageEdit(m.ChannelID, msg.ID, fmt.Sprintf("HTTP API: `%vms` \nGateway: `%vms`", int64(httpPing/time.Millisecond), int64(taken/time.Millisecond)))
 	}
 
-	// If the message is "pong" reply with "Ping!"
-	if content[0] == prefix+"say" {
-		if len(content[1:]) == 0 {
-			error(s, m.ChannelID, "No arguments given", fmt.Sprintf("Please include something after \\%vsay. For example `%[1]vsay Hello`", prefix))
-			return
-		}
-		s.ChannelMessageSend(m.ChannelID,
-			fmt.Sprintf("%v", strings.Join(content[1:], " ")))
-	}
-
-	if content[0] == prefix+"help" {
+	if content[0] == prefix+"hecclp" {
 		if !(len(content[1:]) == 0) {
 			switch content[1] {
 			case "":

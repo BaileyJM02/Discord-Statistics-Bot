@@ -10,5 +10,8 @@ type Command struct {
 	Description string
 	Category    string
 	NeedArgs    bool
-	Run         func(s *discordgo.Session, m *discordgo.MessageCreate)
+	Run         func(s *discordgo.Session,
+		m *discordgo.MessageCreate,
+		content []string,
+		Commands map[string]Command)
 }
