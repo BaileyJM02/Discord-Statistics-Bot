@@ -11,6 +11,7 @@ type Command struct {
 	Description string
 	Category    string
 	NeedArgs    bool
+	OwnerOnly   bool
 	Run         func(s *discordgo.Session,
 		m *discordgo.MessageCreate,
 		content []string,

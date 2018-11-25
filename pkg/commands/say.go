@@ -25,6 +25,7 @@ func init() {
 		"Say something",
 		"General",
 		true,
+		false,
 		SayCommand,
 	}
 

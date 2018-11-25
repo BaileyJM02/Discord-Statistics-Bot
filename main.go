@@ -86,8 +86,13 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	content[0] = strings.Replace(content[0], prefix, "", -1)
 	
 	if cmd, ok := ch.Commands[content[0]]; ok {
+		if (cmd.OwnerOnly && (m.Author.ID != "398197113495748626")) {
+			s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("**Error:** You're not the owner!"))
+			return
+		}
 		fmt.Println("Command Run: ",cmd.Name)
 		cmd.Run(s, m, content, ch.Commands, sh.Bot)
+		return
 	}
 
 				// text := "**\\" + prefix + "Ping**, see how long the bot takes to respond."

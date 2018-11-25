@@ -31,6 +31,7 @@ func init() {
 		"Help you",
 		"General",
 		false,
+		false,
 		helpRun,
 	}
 

@@ -40,6 +40,7 @@ func init() {
 		"see how long the bot takes to respond.",
 		"General",
 		false,
+		false,
 		pingRun,
 	}
 
