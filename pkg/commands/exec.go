@@ -23,7 +23,7 @@ func execRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string,
 	// handle it here
 	if err != nil {
 		takenErr := time.Duration(time.Now().UnixNano() - parsed)
-		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("error => `%.2fs`, Runtime: `%v` ```\n%v```", takenErr.Seconds(), strings.Title(runtime.GOOS), err.Error()))
+		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("error => `%.2fs`, Runtime: `%v` ```bash\n%v```", takenErr.Seconds(), strings.Title(runtime.GOOS), err.Error()))
 	}
 
 	// as the out variable defined above is of type []byte we need to convert
@@ -33,7 +33,7 @@ func execRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string,
 
 	// once we have converted it to a string we can then output it.
 	taken := time.Duration(time.Now().UnixNano() - parsed)
-	s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Result => `%.2fs`, Runtime: `%v` ```\n%v```", taken.Seconds(), strings.Title(runtime.GOOS), output))
+	s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Result => `%.2fs`, Runtime: `%v` ```bash\n%v```", taken.Seconds(), strings.Title(runtime.GOOS), output))
 }
 
 func init() {
