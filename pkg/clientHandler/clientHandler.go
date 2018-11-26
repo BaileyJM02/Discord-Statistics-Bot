@@ -8,7 +8,7 @@ type Client struct {
 
 var (
 	Bot Client = Client{
-		"=",
+		"-",
 		"Bot " + "NDc2MTA2NjI5NjI1MTUxNTA4.Dtswww.d9U5myuKU07X6VZUD3V_pHIUXoA",
 		"A bot called Hue.",
 	}
