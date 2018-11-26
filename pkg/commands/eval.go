@@ -18,7 +18,7 @@ func evalRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string,
 		parsed := time.Now().UnixNano()
 		cmdString := `
 			import (sh "github.com/BaileyJM02/Hue/pkg/clientHandler";
-			ch "github.com/BaileyJM02/Hue/pkg/commandHandler"); func main() {fmt.Print();_ =sh.GetPrefix; _=ch.Commands;` + strings.Join(content[1:], " ") + ";}"
+			ch "github.com/BaileyJM02/Hue/pkg/commandHandler"; "strings"); func main() {fmt.Print();_ =sh.GetPrefix; _=ch.Commands; _=strings.Join([]string{"big","boy"}, ".");` + strings.Join(content[1:], " ") + ";}"
 		output, err := golpal.New().Execute(cmdString)
 		if err != nil {
 			takenErr := time.Duration(time.Now().UnixNano() - parsed)
@@ -36,6 +36,9 @@ func init() {
 		"Shhhh",
 		"General",
 		false,
+		map[string]bool{
+			"expression": true,
+		},
 		true,
 		evalRun,
 	}

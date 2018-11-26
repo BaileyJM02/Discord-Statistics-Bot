@@ -27,6 +27,10 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	content := strings.Fields(m.Content)
 
+	if m.Content == "" {
+		return
+	}
+
 	if !(strings.Contains(content[0], prefix)) {
 		return
 	}
@@ -38,17 +42,15 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("**Error:** You're not the owner!"))
 			return
 		}
+
+		if cmd.NeedArgs == true && len(content[1:]) == 0 {
+			s.ChannelMessageSendEmbed(m.ChannelID, ch.HelpEmbed(m, cmd))
+			return
+		}
 		fmt.Println("Command Run: ", cmd.Name)
 		cmd.Run(s, m, content, ch.Commands, sh.Bot)
 		return
 	}
-
-	// text := "**\\" + prefix + "Ping**, see how long the bot takes to respond."
-	// embed := embed.NewEmbed().
-	// 	SetTitle("Commands - Ping").
-	// 	SetDescription(text + "\n\nUse `" + prefix + "help <command>` for more help.").
-	// 	SetColor(0x00000).MessageEmbed
-	// s.ChannelMessageSendEmbed(m.ChannelID, embed)
 }
 
 func init() {

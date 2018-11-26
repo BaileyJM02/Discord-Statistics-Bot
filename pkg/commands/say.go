@@ -10,10 +10,6 @@ import (
 )
 
 func SayCommand(s *discordgo.Session, m *discordgo.MessageCreate, content []string, Commands map[string]ch.Command, client sh.Client) {
-	if len(content[1:]) == 0 {
-		s.ChannelMessageSend(m.ChannelID, "**Error:** No arguments given (expected text)")
-		return
-	}
 	s.ChannelMessageSend(m.ChannelID,
 		fmt.Sprintf("%v", strings.Join(content[1:], " ")))
 }
@@ -25,6 +21,9 @@ func init() {
 		"Say something",
 		"General",
 		true,
+		map[string]bool{
+			"text": true,
+		},
 		false,
 		SayCommand,
 	}

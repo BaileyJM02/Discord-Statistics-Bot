@@ -4,6 +4,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+// Add full support: https://godoc.org/github.com/bwmarrin/discordgo#MessageEmbed
 type Embed struct {
 	*discordgo.MessageEmbed
 }
@@ -40,18 +41,19 @@ func (e *Embed) SetDescription(description string) *Embed {
 }
 
 //AddField [name] [value]
-func (e *Embed) AddField(name, value string) *Embed {
+func (e *Embed) AddField(name, value string, inline bool) *Embed {
 	if len(value) > 1024 {
 		value = value[:1024]
 	}
 
-	if len(name) > 1024 {
-		name = name[:1024]
+	if len(name) > 256 {
+		name = name[:256]
 	}
 
 	e.Fields = append(e.Fields, &discordgo.MessageEmbedField{
-		Name:  name,
-		Value: value,
+		Name:   name,
+		Value:  value,
+		Inline: inline,
 	})
 
 	return e

@@ -18,7 +18,10 @@ func helpRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string,
 		return
 	}
 	if cmd, ok := Commands[content[1]]; ok {
-		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("\n**%v%v** [%v]\n\nDescription: %v\nUsage: %v%v\nArgs required?: %v", sh.GetPrefix(), cmd.Name, cmd.Category, cmd.Description, sh.GetPrefix(), cmd.Usage, cmd.NeedArgs))
+		_, err := s.ChannelMessageSendEmbed(m.ChannelID, ch.HelpEmbed(m, cmd))
+		if err != nil {
+			fmt.Println(err)
+		}
 	} else {
 		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("**Error:** Command \"%v\" not found", content[1]))
 	}
@@ -31,6 +34,9 @@ func init() {
 		"Help you",
 		"General",
 		false,
+		map[string]bool{
+			"command": false,
+		},
 		false,
 		helpRun,
 	}

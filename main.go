@@ -8,10 +8,11 @@ import (
 
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
 	eh "github.com/BaileyJM02/Hue/pkg/eventHandler"
+
 	// populate Events map[]
-	_ "github.com/BaileyJM02/Hue/pkg/events"
 	"github.com/BaileyJM02/Hue/pkg/embed"
-	
+	_ "github.com/BaileyJM02/Hue/pkg/events"
+
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -26,8 +27,8 @@ func error(session *discordgo.Session, channelid string, er string, reason strin
 	embed := embed.NewEmbed().
 		SetTitle("There was an error while performing this action!").
 		SetDescription("Something went wrong! You can try running the command again but if the error persists, please report it in the [official server](https://invite.gg/hue).").
-		AddField("Error:", fmt.Sprintf("```bash\n%v\n```", er)).
-		AddField("You may be able to fix this by following these instructions:", fmt.Sprintf("%v.", reason)).
+		AddField("Error:", fmt.Sprintf("```bash\n%v\n```", er), false).
+		AddField("You may be able to fix this by following these instructions:", fmt.Sprintf("%v.", reason), false).
 		SetColor(0xF44336).MessageEmbed
 
 	session.ChannelMessageSendEmbed(channelid, embed)
@@ -54,7 +55,7 @@ func main() {
 	}
 
 	// Register events.
-	for event := range eh.Events { 
+	for event := range eh.Events {
 		dg.AddHandler(eh.Events[event].Run)
 	}
 
