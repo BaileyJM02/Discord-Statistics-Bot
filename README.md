@@ -7,23 +7,23 @@ This is docs for the different handlers and functions
 ## Command Handler [:package:](https://github.com/BaileyJM02/Hue/pkg/commandHandler/commandHandler.go)
 > Normally used as `ch`
 
-### `ch.Command`
+#### `ch.Command`
 Some other details
 
-### `ch.Commands`
+#### `ch.Commands`
 Some other details
 
-### `ch.Register(cmd *Command)`
+#### `ch.Register(cmd *Command)`
 Some other details
 
 ## Event Handler [:package:](https://github.com/BaileyJM02/Hue/pkg/eventHandler/eventHandler.go)
 > Normally used as `eh`
 
-### `eh.Event`
+#### `eh.Event`
 Some other details
 
-### `eh.Events`
+#### `eh.Events`
 Some other details
 
-### `eh.Register(cmd *Command)`
+#### `eh.Register(cmd *Command)`
 Some other details
