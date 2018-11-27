@@ -4,7 +4,7 @@
 # Documentation
 This is docs for the different handlers and functions
 
-## [commandHandler](https://github.com/BaileyJM02/Hue/pkg/commandHandler/commandHandler.go)
+## Command Handler [:package:](https://github.com/BaileyJM02/Hue/pkg/commandHandler/commandHandler.go)
 > Normally used as `ch`
 
 ### `ch.Command`
@@ -16,7 +16,7 @@ Some other details
 ### `ch.Register(cmd *Command)`
 Some other details
 
-## [eventHandler](https://github.com/BaileyJM02/Hue/pkg/eventHandler/eventHandler.go)
+## Event Handler [:package:](https://github.com/BaileyJM02/Hue/pkg/eventHandler/eventHandler.go)
 > Normally used as `eh`
 
 ### `eh.Event`
