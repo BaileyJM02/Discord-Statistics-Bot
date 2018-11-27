@@ -2,7 +2,7 @@
 *The* Discord Bot
 
 # Documentation
-This is docs for the different handlers and functions
+This is docs for the different handlers and functions, click ':package:' to go to package.
 
 ## Command Handler [:package:](https://github.com/BaileyJM02/Hue/pkg/commandHandler/commandHandler.go)
 > Normally used as `ch`
