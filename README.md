@@ -1,0 +1,2 @@
+# Hue
+*The* Discord Bot
