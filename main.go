@@ -47,16 +47,16 @@ func main() {
 		return
 	}
 
+	// Register events.
+	for event := range eh.Events {
+		dg.AddHandler(eh.Events[event].Run)
+	}
+
 	// Open a websocket connection to Discord and begin listening.
 	err = dg.Open()
 	if err != nil {
 		fmt.Println("error opening connection,", err)
 		return
-	}
-
-	// Register events.
-	for event := range eh.Events {
-		dg.AddHandler(eh.Events[event].Run)
 	}
 
 	// Wait here until CTRL-C or other term signal is received.
