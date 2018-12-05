@@ -1,16 +1,24 @@
 package clientHandler
 
+import (
+	cf "github.com/BaileyJM02/Hue/pkg/configHandler"
+)
+
 type Client struct {
 	Prefix      string
 	Token       string
 	Description string
+	Ready       bool
+	Guilds      int
 }
 
 var (
 	Bot Client = Client{
-		"-",
-		"Bot " + "NDc2MTA2NjI5NjI1MTUxNTA4.Dtswww.d9U5myuKU07X6VZUD3V_pHIUXoA",
+		cf.Config.Prefix,
+		"Bot " + cf.Config.Token,
 		"A bot called Hue.",
+		false,
+		0,
 	}
 )
 
@@ -24,4 +32,22 @@ func GetToken() string {
 
 func GetDescription() string {
 	return Bot.Description
+}
+
+func GetReady() bool {
+	return Bot.Ready
+}
+
+func ReadyUp() bool {
+	Bot.Ready = true
+	return Bot.Ready
+}
+
+func GetGuilds() int {
+	return Bot.Guilds
+}
+
+func SetGuilds(i int) int {
+	Bot.Guilds = i
+	return Bot.Guilds
 }
