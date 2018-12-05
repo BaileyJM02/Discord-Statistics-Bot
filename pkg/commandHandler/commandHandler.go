@@ -17,6 +17,7 @@ type Command struct {
 	NeedArgs    bool
 	Args        map[string]bool
 	OwnerOnly   bool
+	Enabled     bool
 	Run         func(s *discordgo.Session,
 		m *discordgo.MessageCreate,
 		content []string,
@@ -32,7 +33,9 @@ func Register(cmd Command) {
 	if Commands == nil {
 		Commands = make(map[string]Command)
 	}
-	Commands[cmd.Name] = cmd
+	if Commands[cmd.Name].Enabled {
+		Commands[cmd.Name] = cmd
+	}
 }
 
 // HelpEmbed [MessageCreate] [Command]

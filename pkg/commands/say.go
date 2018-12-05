@@ -25,6 +25,7 @@ func init() {
 			"text": true,
 		},
 		false,
+		true,
 		SayCommand,
 	}
 

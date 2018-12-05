@@ -11,7 +11,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-func pingRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string, Commands map[string]ch.Command, client sh.Client) {
+func statsRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string, Commands map[string]ch.Command, client sh.Client) {
 	msg, _ := s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(":PONGING;%d", time.Now().UnixNano()))
 
 	split := strings.Split(msg.Content, ";")
@@ -34,17 +34,17 @@ func pingRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string,
 }
 
 func init() {
-	ping := ch.Command{
-		"ping",
-		"ping",
-		"see how long the bot takes to respond.",
+	stats := ch.Command{
+		"stats",
+		"stats",
+		"See more info about the bot.",
 		"General",
 		false,
 		map[string]bool{},
 		false,
-		true,
-		pingRun,
+		false,
+		statsRun,
 	}
 
-	ch.Register(ping)
+	ch.Register(stats)
 }

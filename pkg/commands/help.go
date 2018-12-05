@@ -54,6 +54,7 @@ func init() {
 			"command": false,
 		},
 		false,
+		true,
 		helpRun,
 	}
 
