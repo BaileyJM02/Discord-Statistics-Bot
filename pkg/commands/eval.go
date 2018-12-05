@@ -35,7 +35,7 @@ func init() {
 		"eval <expression>",
 		"Shhhh",
 		"Admin",
-		false,
+		true,
 		map[string]bool{
 			"expression": true,
 		},

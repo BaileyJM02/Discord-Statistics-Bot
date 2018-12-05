@@ -42,7 +42,7 @@ func init() {
 		"exec <expression>",
 		"Ugh idk tbh",
 		"Admin",
-		false,
+		true,
 		map[string]bool{
 			"expression": true,
 		},
