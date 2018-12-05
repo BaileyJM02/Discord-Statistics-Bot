@@ -1,14 +1,9 @@
 package eventHandler
 
-import (
-	"github.com/bwmarrin/discordgo"
-)
-
 type Event struct {
 	Name    string
 	Enabled bool
-	Run     func(s *discordgo.Session,
-		m *discordgo.MessageCreate)
+	Run     interface{}
 }
 
 var (
