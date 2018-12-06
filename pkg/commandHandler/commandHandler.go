@@ -33,7 +33,8 @@ func Register(cmd Command) {
 	if Commands == nil {
 		Commands = make(map[string]Command)
 	}
-	if Commands[cmd.Name].Enabled {
+
+	if cmd.Enabled {
 		Commands[cmd.Name] = cmd
 	}
 }
