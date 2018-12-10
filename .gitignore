@@ -3,3 +3,6 @@
 *.temp
 bin/Hue
 bin/Hue.exe
+*.db
+.vscode/launch.json
+Hue

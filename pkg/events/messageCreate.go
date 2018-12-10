@@ -1,7 +1,11 @@
 package commands
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"strings"
 
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
@@ -17,13 +21,14 @@ import (
 // message is created on any channel that the autenticated bot has access to.
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// Ignore all messages created by the bot itself
-	// This isn't required in this specific example but it's a good practice.
 
 	prefix := sh.GetPrefix()
 
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
+
+	sendData(s, m)
 
 	content := strings.Fields(m.Content)
 
@@ -50,6 +55,30 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		fmt.Println("Command Run: ", cmd.Name)
 		cmd.Run(s, m, content, ch.Commands, sh.Bot)
 		return
+	}
+}
+
+// Fallback checks to prevent major errors.
+func sendData(s *discordgo.Session, m *discordgo.MessageCreate) {
+	// user, err := s.GuildMember(m.GuildID, m.ID)
+	// if err != nil {
+	// 	fmt.Printf("The GuildMember request failed with error %s\n", err)
+	// }
+	// jsonValue, _ := json.Marshal(user)
+	// response, err := http.Post(fmt.Sprintf("http://localhost:8000/db/guild/%v/member/%v", m.GuildID, m.ID), "application/json", bytes.NewBuffer(jsonValue))
+	// if err != nil {
+	// 	fmt.Printf("The HTTP request failed with error %s\n", err)
+	// } else {
+	// 	data, _ := ioutil.ReadAll(response.Body)
+	// 	fmt.Println(string(data))
+	// }
+	jsonValue, _ := json.Marshal(m)
+	response, err := http.Post(fmt.Sprintf("http://localhost:8000/db/guild/%v/message/%v", m.GuildID, m.ID), "application/json", bytes.NewBuffer(jsonValue))
+	if err != nil {
+		fmt.Printf("The HTTP request failed with error %s\n", err)
+	} else {
+		data, _ := ioutil.ReadAll(response.Body)
+		fmt.Println(string(data))
 	}
 }
 
