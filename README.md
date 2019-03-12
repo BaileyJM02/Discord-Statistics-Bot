@@ -41,3 +41,10 @@ Some other details
 
 #### `eh.Register(cmd *Command)`
 Some other details
+
+# --
+apiHandler
+clientHandler
+configHandler
+embed
+funcs
