@@ -1,50 +1,70 @@
-> # NOTICE
-> ALL IPs, DOMAINS & TOKENS THAT ARE STILL PRESENT WITHIN THIS CODE ARE NOW UNUSED, CHANGED OR RESET.
+<h1 align="center"> Hue </h1> <br>
+<p align="center">
+  <a href="https://open-source.hue.observer/pre-micro/">
+    <img alt="Hue" title="Hue" src="url" width="450">
+  </a>
+</p>
 
-# Purpose
-The original code for the Discord bot named 'Hue'. The bot's main aim was gaining data, such as messages, links and pictures sent.
+<p align="center">
+  Beautiful statistic collecton. Built with Go.
+</p>
 
-# Documentation
-This is docs for the different handlers and functions, click ':package:' to go to package.
+<p align="center">
+  <a href="https://open-source.hue.observer/pre-micro/">
+    The story behind Hue
+  </a>
+|
+  <a href="https://open-source.hue.observer/">
+    Other open-source projects
+  </a>
+</p>
 
-## Console Commands
+## Table of Contents
 
-To run in production;\
-`go run main.go -env prod` **[Default]**
+- [Introduction](#introduction)
+- [Features](#features)
+- [Feedback](#feedback)
+- [Build Process](#build-process)
+- [Acknowledgments](#acknowledgments)
 
-Alpha;\
-`go run main.go -env alpha`
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-and, Local;\
-`go run main.go -env local`
+## Introduction
 
-## Command Handler [:package:](https://github.com/BaileyJM02/Discord-Statistics-Bot/pkg/commandHandler/commandHandler.go)
-> Normally imported as `ch`
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Discord](https://img.shields.io/badge/Chat_On-Discord-008080.svg?style=flat-square)](https://l.hue.observer/discord)
 
-#### `ch.Command`
-Some other details
+View server and user information within your server. 
 
-#### `ch.Commands`
-Some other details
+## Features
 
-#### `ch.Register(cmd *Command)`
-Some other details
+A few of the things you can do with Hue:
 
-## Event Handler [:package:](https://github.com/BaileyJM02/Discord-Statistics-Bot/pkg/eventHandler/eventHandler.go)
-> Normally imported as `eh`
+* Connect to the Discord API
+* See the ammount of messages sent from a user
+* See the ammount of links sent by a user
+* See the ammount of members joining your server
+* More coming soon...
 
-#### `eh.Event`
-Some other details
+## Feedback
 
-#### `eh.Events`
-Some other details
+Feel free to send us feedback on [Twitter](https://twitter.com/huediscord) or [file an issue](https://github.com/baileyjm02/Discord-Statistics-Bot/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
 
-#### `eh.Register(cmd *Command)`
-Some other details
+If there's anything you'd like to chat about, please feel free to join our [Discord Server](https://l.hue.observer/discord)!
 
-# --
-apiHandler
-clientHandler
-configHandler
-embed
-funcs
+## Build Process
+
+- Follow the [React Native Guide](https://facebook.github.io/react-native/docs/getting-started.html) for getting started building a project with native code. **A Mac is required if you wish to develop for iOS.**
+- Clone or download the repo
+- `yarn` to install dependencies
+- `yarn run link` to link react-native dependencies
+- `yarn start:ios` to start the packager and run the app in the iOS simulator (`yarn start:ios:logger` will boot the application with [redux-logger](<https://github.com/evgenyrodionov/redux-logger>))
+- `yarn start:android` to start the packager and run the app in the the Android device/emulator (`yarn start:android:logger` will boot the application with [redux-logger](https://github.com/evgenyrodionov/redux-logger))
+
+Please take a look at the [contributing guidelines](./CONTRIBUTING.md) for a detailed process on how to build your application as well as troubleshooting information.
+
+**Development Keys**: The `token` in `config/` are for development purposes and do not represent the actual application keys.
+
+## Acknowledgments
+
+Thanks to [JetBrains](https://www.jetbrains.com) for supporting me with an [educational licence](https://www.jetbrains.com/student/).
