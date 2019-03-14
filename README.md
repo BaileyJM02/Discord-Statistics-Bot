@@ -34,7 +34,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Discord](https://img.shields.io/badge/Chat_On-Discord-008080.svg?style=flat-square)](https://l.hue.observer/discord)
 
-View server and user information within your server. 
+This bot is the old code from the original Hue bot that I decided to make open-source for everyone to edit and improve. The main function is to view server and user information within your server, using this bot. On 1st July 2019, this code will become 'live' is the aspect that it will be built after each new commit and placed under a single bot 'Hue Open Source' on Discord. This will be made available to all.
 
 ## Features
 
