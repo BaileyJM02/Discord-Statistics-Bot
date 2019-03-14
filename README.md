@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Beautiful statistic collecton. Built with Go.
+  Beautiful statistics. Built with Go.
 </p>
 
 <p align="center">
