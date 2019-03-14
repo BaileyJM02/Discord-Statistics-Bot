@@ -1,4 +1,4 @@
-<h1 align="center">Discord Statistics Bot</h1> <h5 align="center"> open-source.hue.observer</h5> <br>
+<h1 align="center">Discord Statistics Bot</h1><br>
 <p align="center">
   <a href="https://open-source.hue.observer/pre-micro/">
     <img alt="Hue" title="Hue" src="https://i.imgur.com/ZEdQ3nF.png" width="450">
