@@ -1,7 +1,7 @@
-<h1 align="center"> Hue </h1> <br>
+<h1 align="center">Discord Statistics Bot</h1> <h5 align="center"> open-source.hue.observer</h5> <br>
 <p align="center">
   <a href="https://open-source.hue.observer/pre-micro/">
-    <img alt="Hue" title="Hue" src="url" width="450">
+    <img alt="Hue" title="Hue" src="https://i.imgur.com/ZEdQ3nF.png" width="450">
   </a>
 </p>
 
@@ -11,11 +11,11 @@
 
 <p align="center">
   <a href="https://open-source.hue.observer/pre-micro/">
-    The story behind Hue
+    The story behind going open source
   </a>
 |
   <a href="https://open-source.hue.observer/">
-    Other open-source projects
+    Other open-source projects by us
   </a>
 </p>
 
@@ -54,14 +54,12 @@ If there's anything you'd like to chat about, please feel free to join our [Disc
 
 ## Build Process
 
-- Follow the [React Native Guide](https://facebook.github.io/react-native/docs/getting-started.html) for getting started building a project with native code. **A Mac is required if you wish to develop for iOS.**
+- Follow the [Golang install guide](https://golang.org/doc/install) for getting started building a project with native code.
 - Clone or download the repo
-- `yarn` to install dependencies
-- `yarn run link` to link react-native dependencies
-- `yarn start:ios` to start the packager and run the app in the iOS simulator (`yarn start:ios:logger` will boot the application with [redux-logger](<https://github.com/evgenyrodionov/redux-logger>))
-- `yarn start:android` to start the packager and run the app in the the Android device/emulator (`yarn start:android:logger` will boot the application with [redux-logger](https://github.com/evgenyrodionov/redux-logger))
-
-Please take a look at the [contributing guidelines](./CONTRIBUTING.md) for a detailed process on how to build your application as well as troubleshooting information.
+- `go get github.com/BaileyJM02/Discord-Statistics-Bot` to install dependencies
+- `go run main.go` to start the bot without building
+- `go build main.go` to build the bot into a native build file
+- `./<built file>` to run the bot using the native build file
 
 **Development Keys**: The `token` in `config/` are for development purposes and do not represent the actual application keys.
 
