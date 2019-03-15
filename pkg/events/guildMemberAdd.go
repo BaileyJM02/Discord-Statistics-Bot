@@ -9,6 +9,7 @@ import (
 
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
 	eh "github.com/BaileyJM02/Hue/pkg/eventHandler"
+	"github.com/BaileyJM02/Hue/pkg/logger"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -21,10 +22,10 @@ func guildMemberAdd(s *discordgo.Session, ma *discordgo.GuildMemberAdd) {
 		jsonValue, _ := json.Marshal(m)
 		response, err := http.Post(fmt.Sprintf("http://localhost:8000/db/guild/%v/member/%v", m.GuildID, m.User.ID), "application/json", bytes.NewBuffer(jsonValue))
 		if err != nil {
-			fmt.Printf("The HTTP request failed with error %s\n", err)
+			logger.Error(fmt.Sprintf("The HTTP request failed with error %s\n", err))
 		} else {
 			data, _ := ioutil.ReadAll(response.Body)
-			fmt.Println(string(data))
+			_ = data
 		}
 	}
 }

@@ -7,6 +7,7 @@ import (
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
 	ch "github.com/BaileyJM02/Hue/pkg/commandHandler"
 	"github.com/BaileyJM02/Hue/pkg/embed"
+	"github.com/BaileyJM02/Hue/pkg/logger"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -29,14 +30,14 @@ func helpRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string,
 		}
 		_, err := s.ChannelMessageSendEmbed(m.ChannelID, em.MessageEmbed)
 		if err != nil {
-			fmt.Println(err)
+			logger.Error(err)
 		}
 		return
 	}
 	if cmd, ok := Commands[content[1]]; ok {
 		_, err := s.ChannelMessageSendEmbed(m.ChannelID, ch.HelpEmbed(m, cmd))
 		if err != nil {
-			fmt.Println(err)
+			logger.Error(err)
 		}
 	} else {
 		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("**Error:** Command \"%v\" not found", content[1]))

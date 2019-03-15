@@ -8,6 +8,7 @@ import (
 
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
 	ch "github.com/BaileyJM02/Hue/pkg/commandHandler"
+	"github.com/BaileyJM02/Hue/pkg/logger"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -21,7 +22,7 @@ func pingRun(s *discordgo.Session, m *discordgo.MessageCreate, content []string,
 
 	parsed, err := strconv.ParseInt(split[1], 10, 64)
 	if err != nil {
-		fmt.Println("err,", err)
+		logger.Error(fmt.Sprintf("%v", err))
 		return
 	}
 	taken := time.Duration(time.Now().UnixNano() - parsed)

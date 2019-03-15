@@ -55,8 +55,8 @@ func HelpEmbed(m *discordgo.MessageCreate, cmd Command) *discordgo.MessageEmbed 
 	em := embed.NewEmbed().
 		SetAuthor(m.Author.Username+" | "+strings.Title(cmd.Name[:1])+cmd.Name[1:], m.Author.AvatarURL("")).
 		SetDescription(strings.Title(cmd.Description[:1])+cmd.Description[1:]).
-		SetFooter("\n\nUse "+sh.GetPrefix()+"help for more commands.").
-		AddField("Usage", sh.GetPrefix()+cmd.Usage, false).
+		SetFooter("\n\nUse "+sh.GetPrefix(m.GuildID)+"help for more commands.").
+		AddField("Usage", sh.GetPrefix(m.GuildID)+cmd.Usage, false).
 		AddField("Args", strings.Join(args, ", "), false).
 		SetColor(0xffffff).MessageEmbed
 

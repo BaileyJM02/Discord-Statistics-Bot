@@ -7,6 +7,7 @@ import (
 
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
 	eh "github.com/BaileyJM02/Hue/pkg/eventHandler"
+	"github.com/BaileyJM02/Hue/pkg/logger"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -28,29 +29,26 @@ func deleteGuild(g *discordgo.GuildDelete) {
 	// Create request
 	req, err := http.NewRequest("DELETE", fmt.Sprintf("http://localhost:8000/db/guild/%v", g.ID), nil)
 	if err != nil {
-		fmt.Println(err)
+		logger.Error(err)
 		return
 	}
 
 	// Fetch Request
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		logger.Error(err)
 		return
 	}
 	defer resp.Body.Close()
 
 	// Read Response Body
 	respBody, err := ioutil.ReadAll(resp.Body)
+	_ = respBody
 	if err != nil {
-		fmt.Println(err)
+		logger.Error(err)
 		return
 	}
-
-	// Display Results
-	// fmt.Println("response Status : ", resp.Status)
-	// fmt.Println("response Headers : ", resp.Header)
-	fmt.Println("response Body : ", string(respBody))
+	logger.Info("A guild delete event has been triggered.")
 }
 
 func init() {

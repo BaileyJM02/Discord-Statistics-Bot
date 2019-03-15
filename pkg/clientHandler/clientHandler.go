@@ -1,7 +1,13 @@
 package clientHandler
 
 import (
+	"time"
+	"encoding/json"
+	"fmt"
+	"net/http"
+
 	cf "github.com/BaileyJM02/Hue/pkg/configHandler"
+	"github.com/BaileyJM02/Hue/pkg/logger"
 )
 
 type Client struct {
@@ -10,6 +16,7 @@ type Client struct {
 	Description string
 	Ready       bool
 	Guilds      int
+	Uptime      time.Time
 }
 
 var (
@@ -19,11 +26,19 @@ var (
 		"A bot called Hue.",
 		false,
 		0,
+		time.Now(),
 	}
 )
 
-func GetPrefix() string {
-	return Bot.Prefix
+func GetPrefix(id string) string {
+	var prefix string
+	response, err := http.Get(fmt.Sprintf("http://localhost:8000/db/guild/%v/prefix", id))
+	if err != nil {
+		logger.Error(fmt.Sprintf("The HTTP request failed with error %s\n", err))
+		return "-"
+	}
+	json.NewDecoder(response.Body).Decode(&prefix)
+	return prefix
 }
 
 func GetToken() string {
@@ -40,11 +55,17 @@ func GetReady() bool {
 
 func ReadyUp() bool {
 	Bot.Ready = true
+	Bot.Uptime = time.Now()
 	return Bot.Ready
 }
 
 func GetGuilds() int {
 	return Bot.Guilds
+}
+
+func GetUptime() time.Duration {
+	uptime := time.Now().Sub(Bot.Uptime)
+	return uptime
 }
 
 func SetGuilds(i int) int {

@@ -8,6 +8,7 @@ import (
 
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
 	eh "github.com/BaileyJM02/Hue/pkg/eventHandler"
+	"github.com/BaileyJM02/Hue/pkg/logger"
 
 	// populate Events map[]
 	"github.com/BaileyJM02/Hue/pkg/embed"
@@ -43,7 +44,7 @@ func main() {
 	// Create a new Discord session using the provided bot token.
 	dg, err := discordgo.New(sh.GetToken())
 	if err != nil {
-		fmt.Println("error creating Discord session,", err)
+		logger.Error(fmt.Sprintf("error creating Discord session. %v", err))
 		return
 	}
 
@@ -55,12 +56,12 @@ func main() {
 	// Open a websocket connection to Discord and begin listening.
 	err = dg.Open()
 	if err != nil {
-		fmt.Println("error opening connection,", err)
+		logger.Error(fmt.Sprintf("error opening connection,", err))
 		return
 	}
 
 	// Wait here until CTRL-C or other term signal is received.
-	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
+	logger.Info("Bot is now running.  Press CTRL-C to exit.")
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc

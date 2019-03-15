@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 
+	"github.com/BaileyJM02/Hue/pkg/logger"
 	"github.com/tkanos/gonfig"
 )
 
@@ -44,6 +45,6 @@ func init() {
 	path := getPath(enviroment)
 	err := gonfig.GetConf(path, &Config)
 	if err != nil {
-		fmt.Println(err)
+		logger.Error(fmt.Sprintf("%v", err))
 	}
 }

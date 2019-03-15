@@ -40,7 +40,7 @@ func init() {
 			"expression": true,
 		},
 		true,
-		true,
+		false,
 		evalRun,
 	}
 

@@ -7,6 +7,7 @@ import (
 
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
 	eh "github.com/BaileyJM02/Hue/pkg/eventHandler"
+	"github.com/BaileyJM02/Hue/pkg/logger"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -27,29 +28,25 @@ func deleteMember(m *discordgo.GuildMemberRemove) {
 	// Create request
 	req, err := http.NewRequest("DELETE", fmt.Sprintf("http://localhost:8000/db/guild/%v/member/%v", m.GuildID, m.User.ID), nil)
 	if err != nil {
-		fmt.Println(err)
+		logger.Error(err)
 		return
 	}
 
 	// Fetch Request
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		logger.Error(err)
 		return
 	}
 	defer resp.Body.Close()
 
 	// Read Response Body
 	respBody, err := ioutil.ReadAll(resp.Body)
+	_ = respBody
 	if err != nil {
-		fmt.Println(err)
+		logger.Error(err)
 		return
 	}
-
-	// Display Results
-	// fmt.Println("response Status : ", resp.Status)
-	// fmt.Println("response Headers : ", resp.Header)
-	fmt.Println("response Body : ", string(respBody))
 }
 
 func init() {
