@@ -27,8 +27,6 @@
 - [Build Process](#build-process)
 - [Acknowledgments](#acknowledgments)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Introduction
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
