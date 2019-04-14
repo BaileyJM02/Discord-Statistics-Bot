@@ -7,7 +7,7 @@
       "use": "@now/go"
     },
     {
-      "src": "README.md",
+      "src": "index.md",
       "use": "@now/md"
     }
   ]
