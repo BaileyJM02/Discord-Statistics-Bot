@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"net/http"
 
 	sh "github.com/BaileyJM02/Hue/pkg/clientHandler"
 	eh "github.com/BaileyJM02/Hue/pkg/eventHandler"
@@ -18,10 +19,8 @@ import (
 )
 
 // Variables used for command line parameters
-
-func init() {
-	// flag.StringVar(&Token, "t", "", "Bot Token")
-	// flag.Parse()
+func Handler(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "<h1>Hello from Go on Now!</h1>")
 }
 
 func error(session *discordgo.Session, channelid string, er string, reason string) {
@@ -35,7 +34,7 @@ func error(session *discordgo.Session, channelid string, er string, reason strin
 	session.ChannelMessageSendEmbed(channelid, embed)
 }
 
-func Handler() {
+func main() {
 	// tmpl, err := template.New("test").Parse("{{.Count}} items are made of {{.Material}}")
 	// if err != nil { panic(err) }
 	// err = tmpl.Execute(os.Stdout, sweaters)
