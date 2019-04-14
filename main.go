@@ -35,7 +35,7 @@ func error(session *discordgo.Session, channelid string, er string, reason strin
 	session.ChannelMessageSendEmbed(channelid, embed)
 }
 
-func main() {
+func Handler() {
 	// tmpl, err := template.New("test").Parse("{{.Count}} items are made of {{.Material}}")
 	// if err != nil { panic(err) }
 	// err = tmpl.Execute(os.Stdout, sweaters)
