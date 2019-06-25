@@ -1,3 +1,5 @@
+> To whoever views this code, I appologise for the lack of comments and general bad code ethics. I have since learnt from my mistakes.
+
 <h1 align="center">Discord Statistics Bot</h1><br>
 <p align="center">
   <a href="https://open-source.hue.observer/pre-micro/">
